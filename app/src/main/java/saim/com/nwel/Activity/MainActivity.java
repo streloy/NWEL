@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import saim.com.nwel.Model.ModelUsers;
 import saim.com.nwel.R;
 import saim.com.nwel.Splash;
 import saim.com.nwel.Util.SharedPrefDatabase;
@@ -31,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgQuit;
     LinearLayout layoutAttendance, layoutCollection, layoutOrder, layoutHelp;
+    public static ModelUsers modelUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppThemeFull);
         setContentView(R.layout.activity_main);
+
+        modelUsers = (ModelUsers) getIntent().getSerializableExtra("USER_INFORMATION");
 
         if (new SharedPrefDatabase(this).RetriveLogin() == 0) {
             startActivity(new Intent(getApplicationContext(), Login.class));

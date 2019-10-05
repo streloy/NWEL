@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import saim.com.nwel.Activity.MainActivity;
+import saim.com.nwel.Model.ModelUsers;
 import saim.com.nwel.Util.MainUrl;
 
 public class Splash extends AppCompatActivity {
@@ -87,9 +88,6 @@ public class Splash extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -127,6 +125,12 @@ public class Splash extends AppCompatActivity {
         String SERIAL   = jsonObject.getString("SERIAL");
         String MODEL    = jsonObject.getString("MODEL");
         String BRAND    = jsonObject.getString("BRAND");
+
+        ModelUsers modelUsers = new ModelUsers(ID, NAME, USER_NAME, EMAIL, PHONE, DIVISION_ID, PASSWORD, REMARKS, STATUS, PASS, IMEI, SERIAL, MODEL, BRAND);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("USER_INFORMATION", modelUsers);
+        startActivity(intent);
+        finish();
     }
 
 
