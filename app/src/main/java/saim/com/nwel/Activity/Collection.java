@@ -59,9 +59,9 @@ public class Collection extends AppCompatActivity {
             }
         });
 
-        /*String url = "http://prs.navanawelding.com/apps/login/authentication";
+        /*String MainUrl = "http://prs.navanawelding.com/apps/login/authentication";
         String postData = "user_name=saim&password=123";
-        mWebView.postUrl(url, EncodingUtils.getBytes(postData, "base64"));*/
+        mWebView.postUrl(MainUrl, EncodingUtils.getBytes(postData, "base64"));*/
     }
 
     protected void renderWebPage(String urlToRender){
@@ -85,7 +85,7 @@ public class Collection extends AppCompatActivity {
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            //view.loadUrl(url);
+            //view.loadUrl(MainUrl);
             view.postUrl(url, EncodingUtils.getBytes(postData, "BASE64"));
             return true;
         }
