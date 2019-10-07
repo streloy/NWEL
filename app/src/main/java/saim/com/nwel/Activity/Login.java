@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import saim.com.nwel.Model.ModelUsers;
 import saim.com.nwel.R;
 import saim.com.nwel.Util.SharedPrefDatabase;
 
@@ -16,12 +18,17 @@ public class Login extends AppCompatActivity {
 
     EditText inputUserID, inputUserPassword;
     Button btnLogin;
+    public static ModelUsers modelUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppThemeFull);
         setContentView(R.layout.activity_login);
+
+        modelUsers = (ModelUsers) getIntent().getSerializableExtra("USER_INFORMATION");
+
+        Toast.makeText(getApplicationContext(), modelUsers.getPASS(), Toast.LENGTH_LONG).show();
 
         init();
     }
@@ -61,10 +68,26 @@ public class Login extends AppCompatActivity {
                                 }).create().show();
                     } else {
 
-                        new SharedPrefDatabase(getApplicationContext()).StoreLogin(1);
+                        if (inputUserPassword.getText().toString().equals(modelUsers.getPASS())) {
+                            new SharedPrefDatabase(getApplicationContext()).StoreLogin(1);
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("USER_INFORMATION", modelUsers);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            new AlertDialog.Builder(Login.this)
+                                    .setTitle("Error")
+                                    .setMessage("Wrong password. Please try again.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).create().show();
+                        }
 
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+
                     }
                 }
             }

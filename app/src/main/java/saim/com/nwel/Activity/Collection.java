@@ -28,8 +28,9 @@ public class Collection extends AppCompatActivity {
     TextView layoutProgressText;
 
 
+    String mainUrl1 = "http://prs.navanawelding.com/apps/login";
     String mainUrl = "http://prs.navanawelding.com/apps/login/authentication";
-    String postData = "user_name=saim&password=123";
+    String postData = "user_name=" + MainActivity.modelUsers.getUSER_NAME() + "&password=" + MainActivity.modelUsers.getPASS();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,12 @@ public class Collection extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             layoutProgress.setVisibility(View.VISIBLE);
+            if (url.equals(mainUrl1)) {
+                finish();
+            }
         }
+
+
     }
 
     @Override

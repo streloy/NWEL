@@ -3,7 +3,7 @@
     package="saim.com.nwel">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Login"></activity>
+        <activity android:name=".Activity.AttendanceHistory"></activity>
+        <activity android:name=".Activity.Login" />
         <activity android:name=".Activity.Help" />
         <activity android:name=".Activity.Collection" />
         <activity android:name=".Activity.Attendance" />

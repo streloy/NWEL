@@ -30,7 +30,7 @@ import saim.com.nwel.Util.SharedPrefDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imgQuit;
+    static ImageView imgQuit;
     LinearLayout layoutAttendance, layoutCollection, layoutOrder, layoutHelp;
     public static ModelUsers modelUsers;
 
@@ -43,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
         modelUsers = (ModelUsers) getIntent().getSerializableExtra("USER_INFORMATION");
 
         if (new SharedPrefDatabase(this).RetriveLogin() == 0) {
-            startActivity(new Intent(getApplicationContext(), Login.class));
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            intent.putExtra("USER_INFORMATION", modelUsers);
+            startActivity(intent);
             finish();
         }
+
 
         init();
     }
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                 new SharedPrefDatabase(getApplicationContext()).StoreLogin(0);
                                 dialog.dismiss();
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                //startActivity(new Intent(getApplicationContext(), Login.class));
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
