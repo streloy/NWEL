@@ -10,13 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import saim.com.afcdemoapps.Model.ModelImage;
-import saim.com.afcdemoapps.R;
 import saim.com.nwel.Model.ModelAttendance;
+import saim.com.nwel.R;
 
 
 public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.PostViewHolder>{
@@ -37,16 +35,15 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Po
 
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_all_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_attendance, parent, false);
         PostViewHolder postViewHolder = new PostViewHolder(view);
         return postViewHolder;
     }
 
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
-        holder.txtListTitle.setText(adapterList.get(position).title);
-        holder.txtListDimension.setText(adapterList.get(position).width + "x" + adapterList.get(position).height);
-        holder.txtListDate.setText(adapterList.get(position).upload_at);
+        holder.txtListName.setText(adapterList.get(position).getUSER_NAME());
+        holder.txtListDate.setText(adapterList.get(position).getINSERT_TIME());
     }
 
     @Override
@@ -57,15 +54,14 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Po
     public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imgList;
-        TextView txtListTitle, txtListDimension, txtListDate;
+        TextView txtListName, txtListDate;
 
         public PostViewHolder(View itemView) {
             super(itemView);
 
             imgList = (ImageView) itemView.findViewById(R.id.imgList);
 
-            txtListTitle = (TextView) itemView.findViewById(R.id.txtListTitle);
-            txtListDimension = (TextView) itemView.findViewById(R.id.txtListDimension);
+            txtListName = (TextView) itemView.findViewById(R.id.txtListName);
             txtListDate = (TextView) itemView.findViewById(R.id.txtListDate);
 
             itemView.setOnClickListener(this);

@@ -6,9 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import saim.com.nwel.Adapter.AdapterAttendance;
 import saim.com.nwel.Model.ModelAttendance;
 import saim.com.nwel.Model.ModelUsers;
 import saim.com.nwel.R;
@@ -38,9 +42,12 @@ import saim.com.nwel.Util.MainUrl;
 public class AttendanceHistory extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private TextView txtDatepicker;
+    ProgressBar progressBar;
 
     ArrayList<ModelAttendance> attendanceArrayList = new ArrayList<>();
-
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManagerRecyclerView;
+    RecyclerView.Adapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +59,21 @@ public class AttendanceHistory extends AppCompatActivity implements DatePickerDi
     }
 
     private void init() {
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
         txtDatepicker = (TextView) findViewById(R.id.txtDatepicker);
         txtDatepicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 showDatePickerDailog();
             }
         });
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        layoutManagerRecyclerView = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManagerRecyclerView);
+        recyclerView.setHasFixedSize(true);
     }
 
 
@@ -99,7 +114,7 @@ public class AttendanceHistory extends AppCompatActivity implements DatePickerDi
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        progressBar.setVisibility(View.GONE);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonObject = jsonArray.getJSONObject(0);
@@ -129,7 +144,8 @@ public class AttendanceHistory extends AppCompatActivity implements DatePickerDi
                                     attendanceArrayList.add(modelAttendance);
 
                                 }
-
+                                recyclerViewAdapter = new AdapterAttendance(attendanceArrayList);
+                                recyclerView.setAdapter(recyclerViewAdapter);
 
                             } else {
                                 showDialog(message);

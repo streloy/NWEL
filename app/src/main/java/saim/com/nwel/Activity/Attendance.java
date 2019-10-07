@@ -149,7 +149,7 @@ public class Attendance extends AppCompatActivity {
                     longitude   = location.getLongitude() + "";
                     altitude    = location.getAltitude() + "";
 
-                    Toast.makeText(getApplicationContext(), location.getAccuracy() + " : " + location.getAltitude(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), location.getAccuracy() + " : " + location.getAltitude(), Toast.LENGTH_LONG).show();
                 }
             }
         });
